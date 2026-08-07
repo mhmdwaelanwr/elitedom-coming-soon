@@ -1,0 +1,1 @@
+Binary launch assets are committed via Git tree API.
