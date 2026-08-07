@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#05080d" />
+  <meta name="theme-color" content="#04070b" />
   <meta name="color-scheme" content="dark" />
   <title>Elitedom — Something Is Coming</title>
-  <meta name="description" content="Elitedom is coming. Public access is still restricted." />
+  <meta name="description" content="Elitedom is coming. A new hardware experience is almost online." />
   <link rel="canonical" href="https://elitedom.store/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Elitedom" />
   <meta property="og:title" content="Elitedom — Something Is Coming" />
-  <meta property="og:description" content="Public access: denied. Launch: soon." />
+  <meta property="og:description" content="Access restricted. Launch sequence active." />
   <meta property="og:url" content="https://elitedom.store/" />
   <meta property="og:image" content="https://elitedom.store/assets/og-elitedom.svg" />
   <meta property="og:image:type" content="image/svg+xml" />
@@ -20,27 +20,155 @@
   <meta property="og:image:alt" content="Elitedom — Something is coming" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Elitedom — Something Is Coming" />
-  <meta name="twitter:description" content="Public access: denied. Launch: soon." />
+  <meta name="twitter:description" content="Access restricted. Launch sequence active." />
   <meta name="twitter:image" content="https://elitedom.store/assets/og-elitedom.svg" />
   <link rel="icon" href="assets/logo-mark.png" type="image/png" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="teaser.css" />
+  <link rel="stylesheet" href="teaser.css?v=2" />
 </head>
 <body>
-  <div class="boot-screen" id="bootScreen" aria-hidden="true"><div class="boot-brand"><img src="assets/logo-mark.png" alt="" /><span>ELITEDOM</span></div><div class="boot-line"><span></span></div><p>ESTABLISHING SECURE SIGNAL</p></div>
-  <div class="noise" aria-hidden="true"></div><div class="grid" aria-hidden="true"></div><div class="vignette" aria-hidden="true"></div><div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div><canvas id="particles" aria-hidden="true"></canvas>
-  <header class="nav shell"><a class="brand" href="#top" aria-label="Elitedom home"><img class="brand-mark" src="assets/logo-mark.png" alt="" /><span class="brand-name">Elitedom</span></a><div class="nav-actions"><span class="access-chip"><span class="access-led"></span><span data-i18n="access">ACCESS RESTRICTED</span></span><button class="language-toggle" id="languageToggle" type="button" aria-label="Switch to Arabic">AR</button></div></header>
+  <div class="boot" id="boot" aria-hidden="true">
+    <div class="boot__brand"><img src="assets/logo-mark.png" alt="" /><strong>ELITEDOM</strong></div>
+    <div class="boot__bar"><span></span></div>
+    <p>ESTABLISHING SECURE SIGNAL</p>
+  </div>
+
+  <div class="ambient" aria-hidden="true">
+    <canvas id="particles"></canvas>
+    <div class="ambient__grid"></div>
+    <div class="ambient__noise"></div>
+    <div class="ambient__vignette"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+  </div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <header class="nav shell" id="nav">
+    <a class="brand" href="#top" aria-label="Elitedom home">
+      <img src="assets/logo-mark.png" alt="" />
+      <span>Elitedom</span>
+    </a>
+    <div class="nav__actions">
+      <div class="access-badge"><i></i><span data-i18n="access">ACCESS RESTRICTED</span></div>
+      <button class="lang" id="languageToggle" type="button" aria-label="Switch to Arabic">AR</button>
+    </div>
+  </header>
+
   <main id="top">
     <section class="hero shell">
-      <div class="hero-copy reveal"><div class="eyebrow"><span>ELITEDOM</span><i>//</i><span data-i18n="prelaunch">PRE-LAUNCH SIGNAL</span></div><h1><span data-i18n="heroLine1">SOMETHING</span><span class="metal" data-i18n="heroLine2">IS COMING.</span></h1><p class="hero-text" data-i18n="heroText">You found the signal early. What is behind it stays locked until launch.</p><div class="hero-actions"><a class="primary-cta magnetic" href="#intercept"><span data-i18n="intercept">INTERCEPT SIGNAL</span><span aria-hidden="true">↘</span></a><span class="domain"><span class="domain-led"></span>elitedom.store</span></div><div class="system-strip" aria-label="Pre-launch system status"><div><span data-i18n="coreLabel">CORE SYSTEM</span><strong data-i18n="online">ONLINE</strong></div><div><span data-i18n="productLabel">PRODUCT DATABASE</span><strong class="warning" data-i18n="locked">LOCKED</strong></div><div><span data-i18n="publicLabel">PUBLIC ACCESS</span><strong class="denied" data-i18n="denied">DENIED</strong></div></div></div>
-      <div class="hero-visual reveal"><div class="hardware-stage" id="hardwareStage" aria-label="Partially hidden Elitedom hardware teaser"><div class="hardware-backdrop" aria-hidden="true"></div><div class="device-scene" aria-hidden="true"><div class="gpu device"><span class="gpu-fan fan-a"></span><span class="gpu-fan fan-b"></span><span class="gpu-edge"></span></div><div class="pc-case device"><span class="pc-edge"></span><span class="pc-fan fan-1"></span><span class="pc-fan fan-2"></span><span class="pc-fan fan-3"></span><span class="pc-vent"></span></div><div class="keyboard device"><span></span></div><div class="headset device"><span></span></div><div class="mouse device"></div><div class="psu device"><img src="assets/logo-mark.png" alt="" /></div></div><div class="reveal-light" aria-hidden="true"></div><div class="scan-line" aria-hidden="true"></div><div class="crosshair crosshair-a" aria-hidden="true"></div><div class="crosshair crosshair-b" aria-hidden="true"></div><div class="classified-stamp"><span class="classified-icon">◆</span><span data-i18n="classified">PRODUCT FEED // CLASSIFIED</span></div><div class="stage-code">EDM-08 // SIG-01</div><div class="stage-hint" data-i18n="moveHint">MOVE TO REVEAL // LIMITED ACCESS</div></div></div>
-      <a class="scroll-cue" href="#intercept"><span></span><small data-i18n="scroll">SCROLL TO INTERCEPT</small></a>
+      <div class="hero__copy reveal">
+        <div class="signal-label"><span class="signal-dot"></span><span>ELITEDOM // </span><span data-i18n="prelaunch">PRE-LAUNCH SIGNAL</span></div>
+        <h1><span data-i18n="heroA">SOMETHING</span><span class="metal" data-i18n="heroB">IS COMING.</span></h1>
+        <p class="hero__lead" data-i18n="heroText">A new hardware experience is almost online. You found the signal before the doors opened.</p>
+        <div class="hero__actions">
+          <a class="primary magnetic" href="#signal"><span data-i18n="intercept">INTERCEPT SIGNAL</span><b aria-hidden="true">↘</b></a>
+          <span class="live-domain"><i></i>elitedom.store</span>
+        </div>
+        <div class="protocol" aria-label="Pre-launch status">
+          <div><small data-i18n="core">CORE SYSTEM</small><strong class="ok" data-i18n="online">ONLINE</strong></div>
+          <div><small data-i18n="catalog">CATALOGUE</small><strong class="warn" data-i18n="classified">CLASSIFIED</strong></div>
+          <div><small data-i18n="public">PUBLIC ACCESS</small><strong class="deny" data-i18n="denied">DENIED</strong></div>
+        </div>
+      </div>
+
+      <div class="hero__visual reveal">
+        <div class="vault" id="hardwareVault">
+          <div class="vault__assets" aria-label="Dark silhouettes of gaming and computer hardware">
+            <img class="vault__pc" src="https://raw.githubusercontent.com/mhmdwaelanwr/elitedom-erp-architecture/main/elitedom-store/frontend/public/images/gaming_pc.png" alt="Gaming PC" />
+            <img class="vault__gpu" src="https://raw.githubusercontent.com/mhmdwaelanwr/elitedom-erp-architecture/main/elitedom-store/frontend/public/images/gpu_card.png" alt="Graphics card" />
+            <img class="vault__workstation" src="https://raw.githubusercontent.com/mhmdwaelanwr/elitedom-erp-architecture/main/elitedom-store/frontend/public/images/workstation.png" alt="Workstation" />
+          </div>
+          <div class="vault__light" aria-hidden="true"></div>
+          <div class="vault__scan" aria-hidden="true"></div>
+          <div class="vault__grid" aria-hidden="true"></div>
+          <div class="vault__frame" aria-hidden="true"></div>
+          <div class="vault__code">EDM-08 // VAULT-01</div>
+          <div class="vault__stamp"><span>◆</span><span data-i18n="feed">PRODUCT FEED // CLASSIFIED</span></div>
+          <div class="vault__hint" data-i18n="move">MOVE TO REVEAL // LIMITED ACCESS</div>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#signal" aria-label="Scroll"><span></span><small data-i18n="scroll">SCROLL TO INTERCEPT</small></a>
     </section>
-    <section id="intercept" class="intercept shell section-space"><div class="section-head reveal"><p class="kicker" data-i18n="incoming">INCOMING SIGNAL</p><h2 data-i18n="what">WHAT ARE WE BUILDING?</h2><p data-i18n="glimpse">A glimpse only. The rest stays behind the curtain.</p></div><div class="word-sequence reveal" aria-label="Elitedom launch clues"><span>PERFORMANCE.</span><span>HARDWARE.</span><span>GAMING.</span><span>POWER.</span><span class="redacted">[REDACTED]</span></div><div class="clue-grid"><article class="clue-card reveal tilt-card"><span class="clue-num">01</span><div class="clue-sigil">⌁</div><h3 data-i18n="clue1Title">BUILT FOR REAL SETUPS</h3><p data-i18n="clue1Text">The catalogue is being prepared around the hardware people actually build, upgrade and use.</p><div class="card-scan"></div></article><article class="clue-card reveal tilt-card"><span class="clue-num">02</span><div class="clue-sigil">◎</div><h3 data-i18n="clue2Title">BUILT FOR EGYPT</h3><p data-i18n="clue2Text">The experience is being shaped for how technology is discovered, bought and delivered locally.</p><div class="card-scan"></div></article><article class="clue-card reveal tilt-card"><span class="clue-num">03</span><div class="clue-sigil">◇</div><h3 data-i18n="clue3Title">BUILT TO STAY</h3><p data-i18n="clue3Text">The relationship is not supposed to end when the checkout screen disappears.</p><div class="card-scan"></div></article></div></section>
-    <section class="terminal-section section-space"><div class="shell terminal reveal"><div class="terminal-bar"><div class="terminal-dots"><span></span><span></span><span></span></div><span>ELITEDOM // LAUNCH CONTROL</span><span class="secure">ENCRYPTED</span></div><div class="terminal-grid"><div class="terminal-copy"><p class="kicker" data-i18n="behind">BEHIND THE CURTAIN</p><h2 data-i18n="booting">THE SYSTEM IS BOOTING.</h2><p data-i18n="terminalText">Some parts are online. Some parts are locked. Public access comes last.</p></div><div class="terminal-log"><p><span>› core.system</span><b class="ok" data-i18n="online">ONLINE</b></p><p><span>› product.database</span><b class="lock" data-i18n="locked">LOCKED</b></p><p><span>› warehouse.link</span><b class="working" data-i18n="connecting">CONNECTING</b></p><p><span>› public.access</span><b class="deny" data-i18n="denied">DENIED</b></p><p><span>› launch.sequence</span><b class="soon" data-i18n="soon">SOON</b></p><p class="terminal-cursor"><span>› _</span><b></b></p></div></div></div></section>
-    <section class="enough section-space"><div class="enough-art" aria-hidden="true"><div class="shutdown-ring"></div><img src="assets/logo-mark.png" alt="" /></div><div class="shell enough-content reveal"><p class="kicker" data-i18n="signalCut">SIGNAL INTERRUPTED</p><h2 data-i18n="enough">YOU'VE SEEN ENOUGH.</h2><p data-i18n="returnDark">The rest goes back into the dark until launch.</p></div></section>
-    <section class="finale shell section-space reveal"><img src="assets/logo-mark.png" alt="" class="finale-mark" /><p class="kicker" data-i18n="stay">STAY TUNED</p><h2 data-i18n="wait">THE WAIT WON'T BE LONG.</h2><p data-i18n="finalText">When public access opens, this screen disappears.</p><div class="final-domain"><span class="pulse-ring"></span><strong>elitedom.store</strong></div><div class="launch-state"><span data-i18n="state">CURRENT STATE</span><strong data-i18n="comingSoon">COMING SOON</strong></div><p class="copyright">© <span id="year"></span> Elitedom · <span data-i18n="rights">All rights reserved.</span></p></section>
+
+    <section class="signal-strip" id="signal" aria-label="Product categories">
+      <div class="signal-strip__track">
+        <span>GAMING</span><i>◆</i><span>PC BUILDS</span><i>◆</i><span>COMPONENTS</span><i>◆</i><span>PERIPHERALS</span><i>◆</i><span>AUDIO</span><i>◆</i><span>NETWORKING</span><i>◆</i>
+        <span>GAMING</span><i>◆</i><span>PC BUILDS</span><i>◆</i><span>COMPONENTS</span><i>◆</i><span>PERIPHERALS</span><i>◆</i><span>AUDIO</span><i>◆</i><span>NETWORKING</span><i>◆</i>
+      </div>
+    </section>
+
+    <section class="clues shell section">
+      <div class="section-head reveal">
+        <p class="kicker" data-i18n="incoming">INCOMING SIGNAL</p>
+        <h2><span data-i18n="whatA">WHAT ARE WE</span><span class="metal" data-i18n="whatB">BUILDING?</span></h2>
+        <p data-i18n="glimpse">Just enough to know it is serious. Not enough to spoil the launch.</p>
+      </div>
+
+      <div class="wordline reveal" aria-label="Launch clues">
+        <span>PERFORMANCE</span><i>•</i><span>HARDWARE</span><i>•</i><span>GAMING</span><i>•</i><span>POWER</span><i>•</i><span class="redacted" id="redactedWord">[REDACTED]</span>
+      </div>
+
+      <div class="cards">
+        <article class="card reveal tilt-card">
+          <span class="card__num">01</span><div class="card__icon">⌁</div>
+          <h3 data-i18n="card1Title">BUILT FOR REAL SETUPS</h3>
+          <p data-i18n="card1Text">From first build to serious upgrade — the experience is being shaped around the hardware people actually want.</p>
+          <div class="card__beam"></div>
+        </article>
+        <article class="card reveal tilt-card">
+          <span class="card__num">02</span><div class="card__icon">◎</div>
+          <h3 data-i18n="card2Title">FAST. CLEAR. TRUSTED.</h3>
+          <p data-i18n="card2Text">Less noise, clearer choices, and a storefront designed to feel as sharp as the technology behind it.</p>
+          <div class="card__beam"></div>
+        </article>
+        <article class="card reveal tilt-card">
+          <span class="card__num">03</span><div class="card__icon">◇</div>
+          <h3 data-i18n="card3Title">BUILT TO STAY</h3>
+          <p data-i18n="card3Text">The launch is only the beginning. Elitedom is being built as a destination, not a one-time checkout page.</p>
+          <div class="card__beam"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="control section">
+      <div class="terminal shell reveal">
+        <div class="terminal__bar"><div class="terminal__dots"><span></span><span></span><span></span></div><span>ELITEDOM // LAUNCH CONTROL</span><b>ENCRYPTED</b></div>
+        <div class="terminal__body">
+          <div class="terminal__copy">
+            <p class="kicker" data-i18n="behind">BEHIND THE CURTAIN</p>
+            <h2><span data-i18n="systemA">THE SYSTEM</span><span class="metal" data-i18n="systemB">IS BOOTING.</span></h2>
+            <p data-i18n="systemText">The public site is only the signal. The real experience stays behind the curtain until launch.</p>
+          </div>
+          <div class="terminal__log" aria-label="Launch system status">
+            <p><span>› core.system</span><b class="ok" data-i18n="online">ONLINE</b></p>
+            <p><span>› product.feed</span><b class="warn" data-i18n="classified">CLASSIFIED</b></p>
+            <p><span>› storefront.ui</span><b class="working" data-i18n="calibrating">CALIBRATING</b></p>
+            <p><span>› public.access</span><b class="deny" data-i18n="denied">DENIED</b></p>
+            <p><span>› launch.sequence</span><b class="soon" data-i18n="soon">SOON</b></p>
+            <p class="terminal__cursor"><span>› _</span><b></b></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cut section">
+      <div class="cut__ring" aria-hidden="true"></div>
+      <div class="shell reveal cut__content">
+        <p class="kicker" data-i18n="interrupted">SIGNAL INTERRUPTED</p>
+        <h2 data-i18n="enough">YOU'VE SEEN ENOUGH.</h2>
+        <p data-i18n="dark">The rest goes back into the dark until launch.</p>
+      </div>
+    </section>
+
+    <section class="finale shell section reveal">
+      <div class="finale__mark"><img src="assets/logo-mark.png" alt="" /></div>
+      <p class="kicker" data-i18n="stay">STAY TUNED</p>
+      <h2><span data-i18n="waitA">THE WAIT WON'T</span><span class="metal" data-i18n="waitB">BE LONG.</span></h2>
+      <p data-i18n="finalText">When public access opens, this page disappears and Elitedom begins.</p>
+      <div class="finale__domain"><i></i><strong>elitedom.store</strong></div>
+      <div class="finale__state"><span data-i18n="state">CURRENT STATE</span><b data-i18n="comingSoon">COMING SOON</b></div>
+      <p class="copyright">© <span id="year"></span> Elitedom · <span data-i18n="rights">All rights reserved.</span></p>
+    </section>
   </main>
-  <script src="teaser.js" defer></script>
+
+  <script src="teaser.js?v=2" defer></script>
 </body>
 </html>
