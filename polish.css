@@ -1,0 +1,204 @@
+/* Final visual polish after launch-page review */
+.brand img,.boot__brand img,.finale__mark img{
+  content:url("assets/logo-mark.svg");
+}
+.brand img{
+  width:38px;height:38px;
+  filter:drop-shadow(0 0 14px rgba(119,216,255,.10));
+}
+.finale__mark{
+  background:
+    radial-gradient(circle at 50% 35%,rgba(119,216,255,.08),transparent 58%),
+    rgba(255,255,255,.022);
+  box-shadow:0 24px 70px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.035);
+}
+.finale__mark img{width:54px;height:54px}
+
+.hero__lead,.section-head>p:last-child,.terminal__copy>p:last-child,.card p,.cut p:last-child,.finale>p:not(.kicker):not(.copyright){
+  text-wrap:pretty;
+}
+.hero h1,.section-head h2,.terminal__copy h2,.cut h2,.finale h2{
+  text-wrap:balance;
+}
+
+html[dir=rtl] body{
+  font-family:'Alexandria','Segoe UI',Tahoma,Arial,sans-serif;
+  font-feature-settings:"kern" 1;
+}
+html[dir=rtl] .brand span,
+html[dir=rtl] .live-domain,
+html[dir=rtl] .vault__code,
+html[dir=rtl] .terminal__log>p>span{
+  font-family:'Inter',ui-sans-serif,system-ui,sans-serif;
+}
+html[dir=rtl] .signal-label{
+  direction:rtl;
+  unicode-bidi:isolate;
+  line-height:1.7;
+}
+html[dir=rtl] .signal-label>span:first-of-type{
+  direction:ltr;
+  unicode-bidi:isolate;
+}
+html[dir=rtl] .hero h1{
+  max-width:720px;
+  line-height:1.04;
+  letter-spacing:-.055em;
+}
+html[dir=rtl] .hero__lead{
+  max-width:650px;
+  line-height:2.05;
+  font-size:clamp(1rem,1.15vw,1.12rem);
+  color:#94a2b4;
+}
+html[dir=rtl] .primary{
+  letter-spacing:0;
+  font-weight:750;
+  min-width:176px;
+}
+html[dir=rtl] .primary b{
+  display:inline-block;
+  transform:scaleX(-1);
+}
+html[dir=rtl] .protocol small,
+html[dir=rtl] .protocol strong{
+  font-family:'Alexandria',sans-serif;
+  font-weight:650;
+}
+html[dir=rtl] .wordline span,
+html[dir=rtl] .signal-strip__track span,
+html[dir=rtl] .kicker,
+html[dir=rtl] .access-badge{
+  font-family:'Alexandria',sans-serif;
+}
+html[dir=rtl] .signal-strip__track{
+  animation-direction:reverse;
+}
+html[dir=rtl] .section-head h2,
+html[dir=rtl] .terminal__copy h2,
+html[dir=rtl] .finale h2{
+  line-height:1.12;
+  max-width:850px;
+}
+html[dir=rtl] .section-head>p:last-child,
+html[dir=rtl] .terminal__copy>p:last-child{
+  max-width:700px;
+  line-height:2;
+}
+html[dir=rtl] .card h3{
+  font-weight:750;
+  font-size:1.12rem;
+}
+html[dir=rtl] .card p{
+  font-size:.92rem;
+  line-height:2;
+}
+html[dir=rtl] .terminal__bar{
+  font-family:'Inter',ui-sans-serif,system-ui,sans-serif;
+}
+html[dir=rtl] .terminal__bar [data-i18n],
+html[dir=rtl] .terminal__bar>b{
+  font-family:'Alexandria',sans-serif;
+  letter-spacing:0;
+}
+html[dir=rtl] .terminal__log{
+  direction:ltr;
+}
+html[dir=rtl] .terminal__log b{
+  direction:rtl;
+  unicode-bidi:isolate;
+  font-family:'Alexandria',sans-serif;
+  letter-spacing:0;
+  font-weight:650;
+}
+html[dir=rtl] .cut h2{
+  max-width:1000px;
+  margin-inline:auto;
+}
+html[dir=rtl] .finale>p:not(.kicker):not(.copyright){
+  line-height:2;
+}
+html[dir=rtl] .finale__state{
+  font-weight:600;
+}
+
+/* Make the teaser hardware legible without spoiling the reveal */
+.vault__assets{filter:grayscale(1) brightness(.245) contrast(1.38)}
+.vault:hover .vault__assets,.vault.is-peeking .vault__assets{
+  filter:grayscale(.94) brightness(.37) contrast(1.43)
+}
+.vault__light{
+  background:radial-gradient(circle 170px at var(--spot-x) var(--spot-y),
+    rgba(199,241,255,.29),rgba(84,183,226,.095) 38%,transparent 73%);
+}
+
+/* Slightly more cinematic section separation */
+.clues,.control,.cut,.finale{position:relative}
+.clues:before,.finale:before{
+  content:"";position:absolute;left:50%;top:0;transform:translateX(-50%);
+  width:min(900px,72vw);height:1px;
+  background:linear-gradient(90deg,transparent,rgba(119,216,255,.11),transparent);
+}
+.card{
+  backdrop-filter:blur(4px);
+}
+.card:hover{
+  transform:translateY(-5px);
+}
+
+/* Mobile: designed as a deliberate layout, not a shrunk desktop */
+@media(max-width:720px){
+  .shell{width:min(100% - 28px,1240px)}
+  .nav{height:72px}
+  .brand img{width:32px;height:32px}
+  .brand span{font-size:1.18rem}
+  .hero{padding-top:34px;gap:34px}
+  .hero__visual{order:2}
+  .hero__copy{order:1}
+  .vault{border-radius:22px;min-height:440px}
+  .vault__assets{filter:grayscale(1) brightness(.29) contrast(1.36)}
+  .vault__light{
+    background:radial-gradient(circle 128px at var(--spot-x) var(--spot-y),
+      rgba(199,241,255,.25),rgba(84,183,226,.08) 40%,transparent 75%);
+  }
+  .vault__stamp{max-width:80%;line-height:1.5}
+  .protocol{margin-top:30px}
+  .cards{gap:12px}
+  .card{min-height:250px;padding:24px}
+  .card__icon{margin-bottom:42px}
+  .terminal__bar{padding-inline:14px}
+  .terminal__body{padding:24px}
+  .finale__mark{width:72px;height:72px;border-radius:20px}
+  .finale__mark img{width:47px;height:47px}
+  html[dir=rtl] .hero h1{
+    font-size:clamp(3.15rem,15.5vw,4.55rem);
+    line-height:1.08;
+    max-width:100%;
+  }
+  html[dir=rtl] .hero__lead{
+    font-size:.95rem;
+    line-height:2;
+  }
+  html[dir=rtl] .primary{
+    width:100%;
+  }
+  html[dir=rtl] .section-head h2,
+  html[dir=rtl] .terminal__copy h2,
+  html[dir=rtl] .finale h2{
+    font-size:clamp(2.55rem,12vw,4rem);
+    line-height:1.16;
+  }
+  html[dir=rtl] .cut h2{
+    font-size:clamp(2.8rem,13vw,4.25rem);
+    line-height:1.18;
+  }
+}
+@media(max-width:390px){
+  .shell{width:min(100% - 22px,1240px)}
+  .lang{width:38px;height:38px}
+  html[dir=rtl] .hero h1{font-size:2.85rem}
+  html[dir=rtl] .section-head h2,
+  html[dir=rtl] .terminal__copy h2,
+  html[dir=rtl] .finale h2{font-size:2.4rem}
+  .vault{min-height:400px}
+}
