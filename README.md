@@ -37,8 +37,9 @@ This repository is intentionally separate from the production commerce platform.
 3. Root directory: repository root.
 4. Build command: leave empty.
 5. Output directory: leave empty.
-6. Add `elitedom.store` and `www.elitedom.store` to the project domains.
-7. Point the domain DNS to the values Vercel displays.
+6. Production branch: **main** with automatic Git deployments enabled.
+7. Add `elitedom.store` and `www.elitedom.store` to the project domains.
+8. Point the domain DNS to the values Vercel displays.
 
 The repository is also compatible with Cloudflare Pages, Netlify, GitHub Pages, Nginx, or any static host.
 
