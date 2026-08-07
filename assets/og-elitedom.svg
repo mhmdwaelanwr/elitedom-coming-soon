@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Elitedom — Something is coming">
+  <defs>
+    <radialGradient id="glow" cx="78%" cy="50%" r="60%">
+      <stop offset="0" stop-color="#173243"/>
+      <stop offset=".48" stop-color="#0a141e"/>
+      <stop offset="1" stop-color="#05080d"/>
+    </radialGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".55" stop-color="#d2dae3"/>
+      <stop offset="1" stop-color="#7d8998"/>
+    </linearGradient>
+    <pattern id="grid" width="52" height="52" patternUnits="userSpaceOnUse">
+      <path d="M52 0H0V52" fill="none" stroke="#fff" stroke-opacity=".025"/>
+    </pattern>
+    <filter id="soft"><feGaussianBlur stdDeviation="18"/></filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="900" cy="315" r="240" fill="#56c8ff" opacity=".04" filter="url(#soft)"/>
+  <g transform="translate(78 74) scale(.22)">
+    <path fill="#fff" d="M128 15c33 22 68 35 103 45v52c0 63-33 107-103 129C58 219 25 175 25 112V60c35-10 70-23 103-45Z"/>
+    <path fill="#05080d" d="M21 105c37 8 92-13 140-60-25 44-70 83-118 94-7-11-13-22-18-34h-4Z"/>
+    <path fill="#05080d" d="M36 149c47 4 105-28 157-83-27 55-81 103-139 119-7-11-13-23-18-36Z"/>
+    <path fill="#05080d" d="M66 196c42-5 87-30 123-69-22 46-57 81-101 99-8-9-15-19-22-30Z"/>
+  </g>
+  <text x="150" y="124" fill="#f5f7fa" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="54">Elitedom</text>
+  <text x="78" y="276" fill="#f5f7fa" font-family="Inter,Arial,sans-serif" font-weight="900" font-size="86" letter-spacing="-3">SOMETHING</text>
+  <text x="78" y="366" fill="url(#metal)" font-family="Inter,Arial,sans-serif" font-weight="900" font-size="86" letter-spacing="-3">IS COMING.</text>
+  <text x="80" y="426" fill="#75d4ff" font-family="Inter,Arial,sans-serif" font-weight="700" font-size="19" letter-spacing="2">ACCESS RESTRICTED // PRE-LAUNCH SIGNAL</text>
+  <line x1="80" y1="454" x2="470" y2="454" stroke="#607080" stroke-opacity=".55"/>
+  <text x="80" y="510" fill="#e3e9ef" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="27">elitedom.store</text>
+  <text x="80" y="561" fill="#667587" font-family="Inter,Arial,sans-serif" font-weight="700" font-size="17" letter-spacing="1">PUBLIC ACCESS: DENIED   •   LAUNCH: SOON</text>
+  <g opacity=".72">
+    <rect x="735" y="128" width="285" height="388" rx="14" fill="#060a0f" stroke="#9bdcff" stroke-opacity=".2"/>
+    <line x1="760" y1="145" x2="760" y2="492" stroke="#75d4ff" stroke-opacity=".18"/>
+    <circle cx="932" cy="218" r="48" fill="none" stroke="#b9e7fa" stroke-opacity=".14"/>
+    <circle cx="932" cy="321" r="48" fill="none" stroke="#b9e7fa" stroke-opacity=".14"/>
+    <circle cx="932" cy="424" r="48" fill="none" stroke="#b9e7fa" stroke-opacity=".14"/>
+    <rect x="620" y="372" width="210" height="108" rx="15" fill="#05090d" stroke="#9bdcff" stroke-opacity=".11" transform="rotate(-6 620 372)"/>
+    <circle cx="675" cy="422" r="31" fill="none" stroke="#b9e7fa" stroke-opacity=".1"/>
+    <circle cx="754" cy="414" r="31" fill="none" stroke="#b9e7fa" stroke-opacity=".1"/>
+    <path d="M1008 381h135v86h-135z" fill="#05090d" stroke="#9bdcff" stroke-opacity=".08" transform="rotate(7 1008 381)"/>
+    <ellipse cx="1076" cy="495" rx="68" ry="31" fill="#05090d" stroke="#9bdcff" stroke-opacity=".12"/>
+  </g>
+</svg>
