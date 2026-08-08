@@ -3,6 +3,7 @@ import { join } from 'node:path';
 
 const ROOT = process.cwd();
 const DIST = join(ROOT, 'dist');
+const VERSION = (process.env.VERCEL_GIT_COMMIT_SHA || process.env.GITHUB_SHA || 'local').slice(0, 10);
 
 rmSync(DIST, { recursive: true, force: true });
 mkdirSync(DIST, { recursive: true });
@@ -13,6 +14,9 @@ const stripFontImports = source => source
   .split(/\r?\n/)
   .filter(line => !line.trim().startsWith('@import'))
   .join('\n');
+const trimCssComments = source => source
+  .replace(/\/\*[\s\S]*?\*\//g, '')
+  .replace(/\n{3,}/g, '\n\n');
 
 const cssFiles = [
   'v3.css',
@@ -25,42 +29,65 @@ const cssFiles = [
   'performance-pass.css'
 ];
 
-const css = cssFiles
-  .map(file => `/* ---- ${file} ---- */\n${stripFontImports(read(file))}`)
-  .join('\n\n');
+const css = trimCssComments(cssFiles
+  .map(file => stripFontImports(read(file)))
+  .join('\n\n'));
 writeFileSync(join(DIST, 'app.css'), css);
 
-function cleanV3(source) {
-  // The current CSS is bundled. Never inject an older polish sheet at runtime.
-  return source.replace(/const polish=document\.createElement\("link"\);[\s\S]*?document\.head\.appendChild\(polish\);\s*/m, '');
-}
+function optimizeV3(source) {
+  /* Legacy stylesheet injection is dead in production because CSS is bundled. */
+  source = source.replace(/const polish=document\.createElement\("link"\);[\s\S]*?document\.head\.appendChild\(polish\);\s*/m, '');
 
-function cleanDesktopEffects(source) {
-  // Campaign resources are already part of app.css/app.js; do not request them again.
-  return source.replace(/\s*if \(!document\.querySelector\('link\[data-elitedom-campaign\]'\)\) \{[\s\S]*?\}\s*if \(!document\.querySelector\('script\[data-elitedom-campaign\]'\)\) \{[\s\S]*?\}\s*/m, '\n');
+  /* The performance profile is decided by performance-pass.js immediately before v3. */
+  source = source.replace(
+    'const root=document.documentElement;\nconst body=document.body;',
+    'const root=document.documentElement;\nconst lite=root.dataset.perf==="lite";\nconst body=document.body;'
+  );
+
+  /* Mobile/lite keeps all visuals but skips decorative JS work. */
+  source = source.replace('if(!reduced&&heroVisual){', 'if(!lite&&!reduced&&heroVisual){');
+  source = source.replace('if(!reduced&&cutRing&&innerWidth>720){', 'if(!lite&&!reduced&&cutRing&&innerWidth>720){');
+  source = source.replace('if(fine&&!reduced&&glow){', 'if(!lite&&fine&&!reduced&&glow){');
+  source = source.replaceAll('if(fine&&!reduced){', 'if(!lite&&fine&&!reduced){');
+  source = source.replace('if(!fine||reduced)return;', 'if(lite||!fine||reduced)return;');
+  source = source.replace('if(magnetic&&fine&&!reduced){', 'if(magnetic&&!lite&&fine&&!reduced){');
+  source = source.replace('if(redacted&&!reduced){', 'if(redacted&&!lite&&!reduced){');
+  source = source.replace('const max=document.documentElement.scrollHeight-innerHeight;', 'const max=progress?document.documentElement.scrollHeight-innerHeight:0;');
+  source = source.replace('setInterval(()=>{\n    redactIndex=', 'setInterval(()=>{\n    if(document.hidden)return;\n    redactIndex=');
+
+  /* Particles remain on capable desktop, but decorative canvas does not need retina-2x cost. */
+  source = source.replace('if(!canvas||reduced)return;', 'if(lite||!canvas||reduced)return;');
+  source = source.replace('const dpr=Math.min(devicePixelRatio||1,2);', 'const dpr=Math.min(devicePixelRatio||1,1.5);');
+  source = source.replace('const count=Math.min(74,Math.max(22,Math.floor(w*h/24000)));', 'const count=Math.min(56,Math.max(20,Math.floor(w*h/28000)));');
+
+  return source;
 }
 
 const coreFiles = ['performance-pass.js', 'v3.js', 'final-polish.js', 'campaign-v4.js'];
 const coreParts = coreFiles.map(file => {
   let source = read(file);
-  if (file === 'v3.js') source = cleanV3(source);
-  return `/* ---- ${file} ---- */\n${source}`;
+  if (file === 'v3.js') source = optimizeV3(source);
+  return source;
 });
 
-coreParts.push(`/* ---- adaptive runtime loader ---- */
-(() => {
+coreParts.push(`(() => {
   const lite = document.documentElement.dataset.perf === 'lite';
-  const script = document.createElement('script');
-  script.src = lite ? 'mobile-runtime.js?v=3' : 'desktop-runtime.js?v=3';
-  script.async = true;
-  document.head.appendChild(script);
+  const loadRuntime = () => {
+    const script = document.createElement('script');
+    script.src = lite ? 'mobile-runtime.js?v=${VERSION}' : 'desktop-runtime.js?v=${VERSION}';
+    script.async = true;
+    document.head.appendChild(script);
+  };
+  if (lite) loadRuntime();
+  else if ('requestIdleCallback' in window) requestIdleCallback(loadRuntime, {timeout:700});
+  else setTimeout(loadRuntime, 90);
 })();`);
 
 const appJs = coreParts.join('\n\n');
-const mobileJs = `/* ---- mobile-stability.js ---- */\n${read('mobile-stability.js')}`;
-const desktopJs = `/* ---- interaction-polish.js ---- */\n${cleanDesktopEffects(read('interaction-polish.js'))}`;
+const mobileJs = read('mobile-stability.js');
+const desktopJs = read('interaction-polish.js');
 
-// Parse-check bundles during every deployment so a bad concatenation can never reach production.
+/* Parse-check every generated runtime so broken concatenation never reaches Production. */
 new Function(appJs);
 new Function(mobileJs);
 new Function(desktopJs);
@@ -71,25 +98,24 @@ writeFileSync(join(DIST, 'desktop-runtime.js'), desktopJs);
 
 let html = read('index.html');
 
-// Remove the development stylesheet stack; production serves one CSS file.
+/* Source CSS/JS stays readable in GitHub; Production gets one CSS and one core JS. */
 html = html.replace(/^\s*<link rel="stylesheet" href="(?:v3|polish|final-polish|interaction-polish|brand-assets|mobile-stability|campaign-v4|performance-pass)\.css[^\n]*\n/gm, '');
+html = html.replace(/^\s*<script src="(?:performance-pass|v3|final-polish|mobile-stability|campaign-v4|interaction-polish)\.js[^\n]*<\/script>\s*$/gm, '');
 
-// One variable font file per family instead of multiple static weights, with no CSS @imports.
+/* Load each font family once, without legacy CSS @imports. */
 html = html.replace(
   /https:\/\/fonts\.googleapis\.com\/css2\?family=Alexandria[^\"]+display=swap/,
   'https://fonts.googleapis.com/css2?family=Alexandria:wght@400..800&family=Inter:wght@400..800&display=swap'
 );
 
 const fontLink = /(<link rel="stylesheet" href="https:\/\/fonts\.googleapis\.com[^>]+>\s*)/;
-html = html.replace(fontLink, `$1  <link rel="stylesheet" href="app.css?v=3" />\n`);
-
-// Remove all source runtime fragments; app.js loads the small device-specific runtime only when needed.
-html = html.replace(/^\s*<script src="(?:performance-pass|v3|final-polish|mobile-stability|campaign-v4|interaction-polish)\.js[^\n]*<\/script>\s*$/gm, '');
-html = html.replace('</body>', '  <script src="app.js?v=3" defer></script>\n</body>');
+html = html.replace(fontLink, `$1  <link rel="stylesheet" href="app.css?v=${VERSION}" />\n`);
+html = html.replace('</body>', `  <script src="app.js?v=${VERSION}" defer></script>\n</body>`);
 
 writeFileSync(join(DIST, 'index.html'), html);
 
+console.log(`Production version: ${VERSION}`);
 console.log(`Bundled ${cssFiles.length} CSS sources -> dist/app.css`);
 console.log(`Bundled ${coreFiles.length} core JS sources -> dist/app.js`);
-console.log('Split mobile/desktop interaction runtimes and removed legacy font imports');
+console.log('Pruned lite-device JS work and deferred premium desktop runtime until idle');
 console.log('Copied assets and generated dist/index.html');
