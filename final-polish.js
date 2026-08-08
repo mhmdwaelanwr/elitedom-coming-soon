@@ -108,6 +108,13 @@
   const finalSheet=document.querySelector('link[href*="final-polish.css"]');
   if(finalSheet)document.head.appendChild(finalSheet);
 
+  /* v3 previously forced the temporary hand-made mark. Always restore the official brand asset. */
+  const favicon=document.querySelector('link[rel="icon"]');
+  if(favicon){
+    favicon.href='assets/Elitedom_Logomark_White.svg';
+    favicon.type='image/svg+xml';
+  }
+
   const syncLocaleDetails=()=>{
     const ar=document.documentElement.dir==='rtl';
     const rights=document.querySelector('[data-i18n="rights"]');
