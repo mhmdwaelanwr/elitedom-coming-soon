@@ -53,7 +53,7 @@
   addEventListener('pointerleave', hide, {passive:true});
   addEventListener('blur', hide, {passive:true});
 
-  const hoverSelector = 'a,button,.card,.vault,.terminal,.finale__domain,.finale__mark';
+  const hoverSelector = 'a,button,.card,.vault,.terminal,.finale__domain,.finale__brandlockup';
   document.addEventListener('pointerover', e => {
     if (e.target.closest(hoverSelector)) ring.classList.add('is-active');
   }, {passive:true});
@@ -71,7 +71,7 @@
   });
   document.addEventListener('pointerup', () => ring.classList.remove('is-pressed'));
 
-  const glowTargets = document.querySelectorAll('.card,.terminal,.primary,.lang,.finale__mark');
+  const glowTargets = document.querySelectorAll('.card,.terminal,.primary,.lang');
   glowTargets.forEach(el => {
     el.addEventListener('pointermove', e => {
       const r = el.getBoundingClientRect();
