@@ -64,7 +64,8 @@
     ring.classList.add('is-pressed');
     const ripple = document.createElement('span');
     ripple.className = 'pointer-ripple';
-    ripple.style.transform = `translate3d(${e.clientX}px,${e.clientY}px,0)`;
+    ripple.style.left = `${e.clientX}px`;
+    ripple.style.top = `${e.clientY}px`;
     body.appendChild(ripple);
     setTimeout(() => ripple.remove(), 700);
   });
@@ -83,7 +84,6 @@
     el.addEventListener('pointerleave', () => el.classList.remove('pointer-over'));
   });
 
-  /* Slightly richer depth response on cards without fighting the existing v3 tilt. */
   document.querySelectorAll('.tilt-card').forEach(card => {
     card.addEventListener('pointermove', e => {
       const r = card.getBoundingClientRect();
