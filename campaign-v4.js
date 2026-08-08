@@ -2,6 +2,17 @@
    One source of truth for EN/AR. Egyptian Arabic stays natural and premium,
    while English stays concise and global. Easter eggs are event-driven only. */
 (() => {
+  /* Story progression is intentionally explicit rather than date-driven.
+     Advancing the campaign later is one safe config change instead of a redesign. */
+  const STORY_PHASES = {
+    1: { vault:'VAULT-01', state:'LOCKED' },
+    2: { vault:'VAULT-02', state:'STANDBY' },
+    3: { vault:'VAULT-03', state:'READY' }
+  };
+  const ACTIVE_PHASE = 1;
+  const STORY = STORY_PHASES[ACTIVE_PHASE];
+  document.documentElement.dataset.storyPhase = String(ACTIVE_PHASE);
+
   const COPY = {
     en: {
       access:'ACCESS RESTRICTED', prelaunch:'PRE-LAUNCH SIGNAL', heroA:'SOMETHING', heroB:'IS COMING.',
@@ -15,7 +26,8 @@
       behind:'BEHIND THE SCENES', systemA:'THE STORE', systemB:'IS GETTING READY.', systemText:'This is only the signal. The real store is still behind the door — until launch.',
       calibrating:'GETTING READY', soon:'SOON', interrupted:'SIGNAL CUT', enough:'THAT’S ENOUGH FOR NOW.', dark:'The rest isn’t for today.',
       stay:'STAY CLOSE', waitA:'LAUNCH IS', waitB:'GETTING CLOSER.', finalText:'When the doors open, this page disappears. Then the real thing starts.', state:'RIGHT NOW', comingSoon:'COMING SOON', rights:'All rights reserved.',
-      performance:'ORIGINAL PARTS', hardware:'PC BUILDS', gaming:'GAMING', power:'SUPPORT', catGaming:'GAMING', catBuilds:'PC BUILDS', catComponents:'COMPONENTS', catPeripherals:'PERIPHERALS', catAudio:'AUDIO', catNetwork:'NETWORKING'
+      performance:'ORIGINAL PARTS', hardware:'PC BUILDS', gaming:'GAMING', power:'SUPPORT', catGaming:'GAMING', catBuilds:'PC BUILDS', catComponents:'COMPONENTS', catPeripherals:'PERIPHERALS', catAudio:'AUDIO', catNetwork:'NETWORKING',
+      finaleOrigin:'BUILT HERE. AIMED HIGHER.'
     },
     ar: {
       access:'الدخول لسه مقفول', prelaunch:'إشارة قبل الإطلاق', heroA:'القادم', heroB:'مختلف.',
@@ -29,7 +41,8 @@
       behind:'ورا الكواليس', systemA:'المتجر', systemB:'بيتجهّز.', systemText:'اللي قدامك مجرد إشارة. المتجر الحقيقي لسه ورا الباب — وهيفتح في وقته.',
       calibrating:'بيتجهّز', soon:'قريبًا', interrupted:'الإشارة اتقطعت', enough:'كفاية لحد كده.', dark:'الباقي مش وقته لسه.',
       stay:'خليك قريب', waitA:'الإطلاق', waitB:'أقرب مما تتوقع.', finalText:'أول ما نفتح، الصفحة دي هتختفي… وساعتها يبدأ الجد.', state:'دلوقتي', comingSoon:'قريبًا', rights:'جميع الحقوق محفوظة.',
-      performance:'قطع أصلية', hardware:'تجميعات', gaming:'جيمينج', power:'دعم', catGaming:'جيمينج', catBuilds:'تجميعات كمبيوتر', catComponents:'مكوّنات', catPeripherals:'إكسسوارات', catAudio:'صوتيات', catNetwork:'شبكات'
+      performance:'قطع أصلية', hardware:'تجميعات', gaming:'جيمينج', power:'دعم', catGaming:'جيمينج', catBuilds:'تجميعات كمبيوتر', catComponents:'مكوّنات', catPeripherals:'إكسسوارات', catAudio:'صوتيات', catNetwork:'شبكات',
+      finaleOrigin:'من هنا… لحاجة أكبر.'
     }
   };
 
@@ -59,7 +72,7 @@
     if (vaultHint) vaultHint.textContent = map[matchMedia('(pointer:fine)').matches ? 'move' : 'moveTouch'];
 
     const vaultCode = $('.vault__code');
-    if (vaultCode) vaultCode.textContent = 'ELITEDOM // VAULT-01';
+    if (vaultCode) vaultCode.textContent = `ELITEDOM // ${STORY.vault}`;
 
     let origin = $('.vault__origin');
     if (!origin && vault) {
@@ -101,6 +114,18 @@
     }
     const redactedText = redacted?.querySelector('span');
     if (redactedText) redactedText.textContent = lang === 'ar' ? 'معاينة // محجوبة جزئيًا' : 'PREVIEW // PARTIALLY REDACTED';
+
+    let finaleOrigin = $('.finale__origin');
+    const finaleState = $('.finale__state');
+    if (!finaleOrigin && finaleState) {
+      finaleOrigin = document.createElement('div');
+      finaleOrigin.className = 'finale__origin';
+      finaleState.insertAdjacentElement('afterend', finaleOrigin);
+    }
+    if (finaleOrigin) {
+      finaleOrigin.innerHTML = `<span dir="ltr">CAIRO, EG //</span><strong>${map.finaleOrigin}</strong>`;
+      finaleOrigin.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+    }
   };
 
   if (typeof applyLanguage === 'function') applyLanguage(currentLang(), false);
@@ -145,4 +170,22 @@
       vault.addEventListener('pointerleave', cancelLongPress, {passive:true});
     }
   }
+
+  /* Third easter egg: the terminal prompt can briefly trace the signal back to Cairo.
+     Click/tap only; no observers or continuous work. */
+  const cursorRow = $('.terminal__cursor');
+  const cursorLabel = cursorRow?.querySelector('span');
+  const cursorStatus = cursorRow?.querySelector('b');
+  let traceTimer = 0;
+  cursorRow?.addEventListener('click', () => {
+    clearTimeout(traceTimer);
+    if (cursorLabel) cursorLabel.textContent = '› origin.trace';
+    if (cursorStatus) cursorStatus.textContent = 'CAIRO, EG';
+    cursorRow.classList.add('is-tracing');
+    traceTimer = window.setTimeout(() => {
+      if (cursorLabel) cursorLabel.textContent = '› _';
+      if (cursorStatus) cursorStatus.textContent = '';
+      cursorRow.classList.remove('is-tracing');
+    }, 1800);
+  });
 })();
