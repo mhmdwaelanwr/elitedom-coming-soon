@@ -3,7 +3,10 @@
 /* Defer rendering of below-the-fold sections until the browser needs them. */
 .clues,.control,.cut,.finale{content-visibility:auto;contain-intrinsic-size:auto 780px}
 
-/* Avoid expensive paint work when the page is not actively swapping locale. */
+/* Pause CSS animation work when the tab is not visible. */
+html.perf-paused *,html.perf-paused *::before,html.perf-paused *::after{animation-play-state:paused!important}
+
+/* Avoid expensive paint work when the page is actively swapping locale. */
 html.locale-swapping .reveal,html.locale-swapping .hero__visual,html.locale-swapping .vault{transition:none!important}
 
 html[data-perf="lite"] .ambient__noise,
