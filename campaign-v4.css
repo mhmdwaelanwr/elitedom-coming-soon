@@ -4,7 +4,7 @@
 .vault__assets{position:absolute!important;inset:0!important;display:block!important;background:
   linear-gradient(90deg,rgba(2,5,8,.64) 0%,rgba(2,5,8,.16) 43%,rgba(2,5,8,.42) 100%),
   linear-gradient(180deg,rgba(2,5,8,.04),rgba(2,5,8,.45)),
-  url('assets/elitedom-vault-cinematic.webp') center/cover no-repeat!important;
+  url('assets/elitedom-vault-cinematic-lite.webp') center/cover no-repeat!important;
   opacity:.86!important;filter:saturate(.72) contrast(1.12) brightness(.88);transform:scale(1.025);transition:transform .8s cubic-bezier(.2,.75,.25,1),filter .5s ease}
 .vault__assets img{display:none!important}
 .vault:hover .vault__assets{transform:scale(1.045);filter:saturate(.82) contrast(1.14) brightness(.96)}
