@@ -6,6 +6,20 @@
 /* Pause CSS animation work when the tab is not visible. */
 html.perf-paused *,html.perf-paused *::before,html.perf-paused *::after{animation-play-state:paused!important}
 
+/* Offscreen scenes keep their exact styling but stop consuming animation frames. */
+.perf-offscreen .vault__scan,
+.perf-offscreen .vault__corner,
+.perf-offscreen .signal-strip__track,
+.perf-offscreen .card__icon,
+.perf-offscreen .card__beam,
+.perf-offscreen .terminal__dots span,
+.perf-offscreen .terminal__cursor b,
+.perf-offscreen .cut__ring,
+.perf-offscreen .official-logo--stacked,
+.signal-strip.perf-offscreen .signal-strip__track,
+.cut.perf-offscreen .cut__ring,
+.finale.perf-offscreen .finale__brandlockup{animation-play-state:paused!important}
+
 /* Avoid expensive paint work when the page is actively swapping locale. */
 html.locale-swapping .reveal,html.locale-swapping .hero__visual,html.locale-swapping .vault{transition:none!important}
 
