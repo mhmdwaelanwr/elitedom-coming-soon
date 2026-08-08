@@ -9,7 +9,7 @@
       prelaunch:'إشارة قبل الإطلاق',
       heroA:'القادم',
       heroB:'مختلف.',
-      heroText:'تجربة جديدة للهاردوير والتقنية تقترب من الانطلاق. أنت هنا مبكرًا… قبل أن تُفتح الأبواب.',
+      heroText:'تجربة جديدة للهاردوير والتقنية تقترب من الانطلاق. وصلت مبكرًا… قبل أن تُفتح الأبواب.',
       intercept:'تتبّع الإشارة',
       core:'النظام الأساسي',
       catalog:'الكتالوج',
@@ -22,8 +22,8 @@
       moveTouch:'المس لاكتشاف لمحة // وصول محدود',
       scroll:'تابع الإشارة',
       incoming:'تم التقاط الإشارة',
-      whatA:'ما الذي',
-      whatB:'نُجهّزه؟',
+      whatA:'ماذا',
+      whatB:'نُجهّز؟',
       glimpse:'لمحة تكفي لتعرف أن القادم مختلف — والباقي نتركه ليوم الإطلاق.',
       card1Title:'لتجميعتك القادمة',
       card1Text:'من أول تجميعة إلى أقوى ترقية، نصمم تجربة توصلك إلى الهاردوير المناسب بثقة ووضوح.',
@@ -38,7 +38,7 @@
       calibrating:'قيد التجهيز',
       soon:'قريبًا',
       interrupted:'انقطعت الإشارة',
-      enough:'رأيت ما يكفي… حتى الآن.',
+      enough:'هذا كل ما سنكشفه… الآن.',
       dark:'أما الباقي، فسيظل في الظل حتى يوم الإطلاق.',
       stay:'ترقّب',
       waitA:'الانطلاق',
@@ -63,7 +63,6 @@
     });
   }
 
-  /* v3 injects an old polish stylesheet. The final stylesheet is already in <head>. */
   document.querySelectorAll('link[href*="polish.css?v=2"]').forEach(link=>link.remove());
   const finalSheet=document.querySelector('link[href*="final-polish.css"]');
   if(finalSheet)document.head.appendChild(finalSheet);
@@ -73,7 +72,7 @@
     const rights=document.querySelector('[data-i18n="rights"]');
     if(rights)rights.setAttribute('dir',ar?'rtl':'ltr');
     const copyright=document.querySelector('.copyright');
-    if(copyright)copyright.setAttribute('dir',ar?'ltr':'ltr');
+    if(copyright)copyright.setAttribute('dir','ltr');
   };
 
   if(typeof applyLanguage==='function'){
@@ -85,7 +84,6 @@
   const langButton=document.getElementById('languageToggle');
   langButton?.addEventListener('click',()=>requestAnimationFrame(syncLocaleDetails));
 
-  /* Premium auto-hiding navigation: out of the way while watching, back when needed. */
   const nav=document.getElementById('nav');
   let lastY=window.scrollY;
   let ticking=false;
@@ -103,7 +101,6 @@
     if(!ticking){requestAnimationFrame(updateNav);ticking=true;}
   },{passive:true});
 
-  /* Keep mixed-language terminal header deterministic after each language switch. */
   const fixTerminalHeader=()=>{
     const wrap=document.querySelector('.terminal__bar>span');
     const brandPart=wrap?.querySelector('.terminal-brand');
