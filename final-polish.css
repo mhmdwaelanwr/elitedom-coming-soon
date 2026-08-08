@@ -21,6 +21,14 @@
 html[dir=rtl] body{
   font-family:'IBM Plex Sans Arabic','Alexandria','Segoe UI',Tahoma,Arial,sans-serif;
 }
+html[dir=rtl] .brand{
+  direction:ltr;
+  unicode-bidi:isolate;
+}
+html[dir=rtl] .brand span{
+  direction:ltr;
+  unicode-bidi:isolate;
+}
 html[dir=rtl] h1,
 html[dir=rtl] h2,
 html[dir=rtl] h3,
