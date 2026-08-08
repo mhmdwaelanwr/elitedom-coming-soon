@@ -27,7 +27,7 @@
       calibrating:'GETTING READY', soon:'SOON', interrupted:'SIGNAL CUT', enough:'THAT’S ENOUGH FOR NOW.', dark:'The rest isn’t for today.',
       stay:'STAY CLOSE', waitA:'LAUNCH IS', waitB:'GETTING CLOSER.', finalText:'When the doors open, this page disappears. Then the real thing starts.', state:'RIGHT NOW', comingSoon:'COMING SOON', rights:'All rights reserved.',
       performance:'ORIGINAL PARTS', hardware:'PC BUILDS', gaming:'GAMING', power:'SUPPORT', catGaming:'GAMING', catBuilds:'PC BUILDS', catComponents:'COMPONENTS', catPeripherals:'PERIPHERALS', catAudio:'AUDIO', catNetwork:'NETWORKING',
-      finaleOrigin:'BUILT HERE. AIMED HIGHER.'
+      finaleOrigin:'BUILT HERE. AIMED HIGHER.', socialFollow:'FOLLOW ELITEDOM'
     },
     ar: {
       access:'الدخول لسه مقفول', prelaunch:'إشارة قبل الإطلاق', heroA:'القادم', heroB:'مختلف.',
@@ -42,9 +42,22 @@
       calibrating:'بيتجهّز', soon:'قريبًا', interrupted:'الإشارة اتقطعت', enough:'كفاية لحد كده.', dark:'الباقي مش وقته لسه.',
       stay:'خليك قريب', waitA:'الإطلاق', waitB:'أقرب مما تتوقع.', finalText:'أول ما نفتح، الصفحة دي هتختفي… وساعتها يبدأ الجد.', state:'دلوقتي', comingSoon:'قريبًا', rights:'جميع الحقوق محفوظة.',
       performance:'قطع أصلية', hardware:'تجميعات', gaming:'جيمينج', power:'دعم', catGaming:'جيمينج', catBuilds:'تجميعات كمبيوتر', catComponents:'مكوّنات', catPeripherals:'إكسسوارات', catAudio:'صوتيات', catNetwork:'شبكات',
-      finaleOrigin:'من هنا… لحاجة أكبر.'
+      finaleOrigin:'من هنا… لحاجة أكبر.', socialFollow:'تابع Elitedom'
     }
   };
+
+  const SOCIALS = [
+    {name:'Instagram',icon:'<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.7" r="1" fill="currentColor" stroke="none"/>'},
+    {name:'Facebook',icon:'<path d="M14.2 8.1h3V4.3h-3.2c-3.3 0-5.2 2-5.2 5.3v2.3H6v4h2.8V22h4.1v-6.1h3.3l.6-4h-3.9V9.8c0-1.1.4-1.7 1.3-1.7z" fill="currentColor" stroke="none"/>'},
+    {name:'TikTok',icon:'<path d="M14 4c.6 2.7 2.1 4.2 5 4.4v3.4c-1.8 0-3.4-.6-4.8-1.6v6.2a5.7 5.7 0 1 1-4.9-5.6v3.5a2.4 2.4 0 1 0 1.5 2.2V4H14z" fill="currentColor" stroke="none"/>'},
+    {name:'YouTube',icon:'<rect x="2.5" y="6" width="19" height="12" rx="4"/><path d="m10 9 5 3-5 3z" fill="currentColor" stroke="none"/>'},
+    {name:'X',icon:'<path d="M5 4h3.8l3.8 5 4.3-5H19l-5.4 6.4L19.5 20h-3.8l-4.2-5.6L6.8 20H4.5l5.9-7L5 4z" fill="currentColor" stroke="none"/>'},
+    {name:'Threads',icon:'<path d="M12 3.5c-4.8 0-8 3.1-8 8.4 0 5.4 3.2 8.6 8.2 8.6 4.4 0 7.3-2.3 7.3-5.9 0-2.7-1.5-4.4-4.1-5.2-.6-2-2-3.1-4.2-3.1-2 0-3.5.8-4.4 2.3l2.4 1.4c.5-.8 1.1-1.2 2-1.2.8 0 1.4.3 1.8.9-3.8.1-5.7 1.4-5.7 3.9 0 2.1 1.7 3.6 4.3 3.6 2.5 0 4.3-1.3 4.6-3.5.6.5.8 1.1.8 1.9 0 2-1.7 3.1-4.8 3.1-3.5 0-5.6-2.3-5.6-6.8 0-4.2 2.1-6.6 5.5-6.6 2.6 0 4.5 1.2 5.5 3.6l2.3-1.1C18.4 5 15.8 3.5 12 3.5zm-.3 11.2c-1 0-1.7-.5-1.7-1.2 0-.9 1-1.4 3.2-1.4h.4c0 1.7-.7 2.6-1.9 2.6z" fill="currentColor" stroke="none"/>'},
+    {name:'Discord',icon:'<path d="M8.2 7.2c1.2-.5 2.5-.8 3.8-.8s2.6.3 3.8.8l.6-1.1c1.7.5 3 1.2 4 2.1.8 3.1.8 6.2-.1 9.3-1.4 1-2.8 1.7-4.3 2.1l-1.1-1.5c.7-.3 1.3-.7 1.9-1.1-3.1 1.4-6.5 1.4-9.6 0 .6.4 1.2.8 1.9 1.1L8 19.6c-1.5-.4-2.9-1.1-4.3-2.1-.9-3.1-.9-6.2-.1-9.3 1-.9 2.3-1.6 4-2.1l.6 1.1zm1.1 4.1c-.9 0-1.6.8-1.6 1.9 0 1 .7 1.9 1.6 1.9.9 0 1.6-.8 1.6-1.9s-.7-1.9-1.6-1.9zm5.4 0c-.9 0-1.6.8-1.6 1.9 0 1 .7 1.9 1.6 1.9.9 0 1.6-.8 1.6-1.9s-.7-1.9-1.6-1.9z" fill="currentColor" stroke="none"/>'},
+    {name:'LinkedIn',icon:'<rect x="3" y="9" width="4" height="12" rx=".8" fill="currentColor" stroke="none"/><circle cx="5" cy="5.5" r="2" fill="currentColor" stroke="none"/><path d="M10 9h3.8v1.7c.9-1.3 2.1-2 3.7-2 3 0 4.5 1.8 4.5 5.2V21h-4v-6.2c0-1.8-.6-2.7-2-2.7-1.5 0-2 1-2 3V21h-4V9z" fill="currentColor" stroke="none"/>'},
+    {name:'Telegram',icon:'<path d="M21 4.5 17.8 20c-.2 1-1 1.2-1.8.8l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.8-8c.4-.4-.1-.6-.6-.3L5.6 13.7 1 12.2c-1-.3-1-1 .2-1.5L19.4 3.7c.9-.3 1.8.2 1.6.8z" fill="currentColor" stroke="none"/>'},
+    {name:'WhatsApp',icon:'<path d="M12 3a8.5 8.5 0 0 0-7.3 12.8L3.5 21l5.4-1.4A8.5 8.5 0 1 0 12 3z"/><path d="M9 8.2c.3-.5.6-.5.9-.5h.5c.2 0 .4.1.5.5l.8 2c.1.3 0 .6-.2.8l-.6.7c-.2.2-.2.4 0 .7.6 1 1.5 1.9 2.5 2.5.3.2.5.2.7-.1l.8-1c.2-.3.5-.3.8-.2l1.9.9c.3.2.5.3.5.6 0 .4-.2 1.5-1 2.1-.7.6-1.6 1-2.8.7-1.2-.3-2.8-1-4.5-2.5-2-1.7-3.3-3.9-3.7-5.3-.4-1.4.4-2.9.9-3.5z" fill="currentColor" stroke="none"/>'}
+  ];
 
   if (typeof translations !== 'undefined') {
     Object.assign(translations.en, COPY.en);
@@ -126,6 +139,21 @@
       finaleOrigin.innerHTML = `<span dir="ltr">CAIRO, EG //</span><strong>${map.finaleOrigin}</strong>`;
       finaleOrigin.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
     }
+
+    let socialFooter = $('.social-footer');
+    const copyright = $('.copyright');
+    if (!socialFooter && copyright) {
+      socialFooter = document.createElement('div');
+      socialFooter.className = 'social-footer';
+      socialFooter.innerHTML = `
+        <span class="social-footer__label"></span>
+        <div class="social-dock" role="list" aria-label="Elitedom social channels">
+          ${SOCIALS.map(s => `<span class="social-chip" role="listitem" aria-label="${s.name}" title="${s.name}" data-social="${s.name.toLowerCase()}"><svg viewBox="0 0 24 24" aria-hidden="true">${s.icon}</svg></span>`).join('')}
+        </div>`;
+      copyright.insertAdjacentElement('beforebegin', socialFooter);
+    }
+    const socialLabel = socialFooter?.querySelector('.social-footer__label');
+    if (socialLabel) socialLabel.textContent = map.socialFollow;
   };
 
   if (typeof applyLanguage === 'function') applyLanguage(currentLang(), false);
