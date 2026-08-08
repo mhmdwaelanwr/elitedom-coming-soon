@@ -1,204 +1,278 @@
-/* Final visual polish after launch-page review */
-.brand img,.boot__brand img,.finale__mark img{
-  content:url("assets/logo-mark.svg");
-}
-.brand img{
-  width:38px;height:38px;
-  filter:drop-shadow(0 0 14px rgba(119,216,255,.10));
-}
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
+
+/* Final visual polish after Arabic/RTL launch review */
+.brand img,.boot__brand img,.finale__mark img{content:url("assets/logo-mark.svg")}
+.brand img{width:38px;height:38px;filter:drop-shadow(0 0 14px rgba(119,216,255,.10))}
 .finale__mark{
-  background:
-    radial-gradient(circle at 50% 35%,rgba(119,216,255,.08),transparent 58%),
-    rgba(255,255,255,.022);
-  box-shadow:0 24px 70px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.035);
+  background:radial-gradient(circle at 50% 35%,rgba(119,216,255,.08),transparent 58%),rgba(255,255,255,.022);
+  box-shadow:0 24px 70px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.035)
 }
 .finale__mark img{width:54px;height:54px}
 
-.hero__lead,.section-head>p:last-child,.terminal__copy>p:last-child,.card p,.cut p:last-child,.finale>p:not(.kicker):not(.copyright){
-  text-wrap:pretty;
-}
-.hero h1,.section-head h2,.terminal__copy h2,.cut h2,.finale h2{
-  text-wrap:balance;
-}
+.hero__lead,.section-head>p:last-child,.terminal__copy>p:last-child,.card p,.cut p:last-child,.finale>p:not(.kicker):not(.copyright){text-wrap:pretty}
+.hero h1,.section-head h2,.terminal__copy h2,.cut h2,.finale h2{text-wrap:balance}
 
+/* Arabic is treated as its own visual system, not as mirrored English. */
 html[dir=rtl] body{
-  font-family:'Alexandria','Segoe UI',Tahoma,Arial,sans-serif;
+  font-family:'IBM Plex Sans Arabic','Segoe UI',Tahoma,Arial,sans-serif;
   font-feature-settings:"kern" 1;
+  text-rendering:optimizeLegibility
+}
+html[dir=rtl] h1,
+html[dir=rtl] h2,
+html[dir=rtl] h3,
+html[dir=rtl] .primary,
+html[dir=rtl] .kicker,
+html[dir=rtl] .protocol,
+html[dir=rtl] .access-badge,
+html[dir=rtl] .wordline,
+html[dir=rtl] .signal-strip__track,
+html[dir=rtl] .finale__state{
+  font-family:'Alexandria','IBM Plex Sans Arabic',sans-serif
 }
 html[dir=rtl] .brand span,
 html[dir=rtl] .live-domain,
+html[dir=rtl] .finale__domain,
 html[dir=rtl] .vault__code,
-html[dir=rtl] .terminal__log>p>span{
+html[dir=rtl] .terminal__log>p>span,
+html[dir=rtl] .terminal-brand{
   font-family:'Inter',ui-sans-serif,system-ui,sans-serif;
+  direction:ltr;
+  unicode-bidi:isolate
 }
+
 html[dir=rtl] .signal-label{
   direction:rtl;
   unicode-bidi:isolate;
   line-height:1.7;
+  letter-spacing:0;
+  font-family:'Alexandria','IBM Plex Sans Arabic',sans-serif;
+  font-weight:650
 }
-html[dir=rtl] .signal-label>span:first-of-type{
-  direction:ltr;
-  unicode-bidi:isolate;
-}
+html[dir=rtl] .signal-label>span:nth-child(2){direction:ltr;unicode-bidi:isolate;font-family:'Inter',sans-serif;letter-spacing:.08em}
+
 html[dir=rtl] .hero h1{
   max-width:720px;
   line-height:1.04;
-  letter-spacing:-.055em;
+  letter-spacing:-.045em;
+  font-weight:760
 }
 html[dir=rtl] .hero__lead{
-  max-width:650px;
-  line-height:2.05;
-  font-size:clamp(1rem,1.15vw,1.12rem);
-  color:#94a2b4;
+  max-width:640px;
+  line-height:2;
+  font-size:clamp(1.02rem,1.18vw,1.14rem);
+  color:#97a5b6;
+  font-weight:400
 }
+html[dir=rtl] .hero__actions{gap:14px}
 html[dir=rtl] .primary{
   letter-spacing:0;
-  font-weight:750;
-  min-width:176px;
+  font-weight:700;
+  min-width:178px;
+  min-height:55px
 }
-html[dir=rtl] .primary b{
-  display:inline-block;
-  transform:scaleX(-1);
-}
+html[dir=rtl] .primary b{display:inline-block;transform:scaleX(-1)}
+html[dir=rtl] .live-domain,
+html[dir=rtl] .finale__domain{direction:ltr;unicode-bidi:isolate}
+
+html[dir=rtl] .protocol{gap:0}
+html[dir=rtl] .protocol div{padding-inline:18px}
+html[dir=rtl] .protocol div:first-child{padding-inline-start:0}
+html[dir=rtl] .protocol div:last-child{padding-inline-end:0}
+html[dir=rtl] .protocol div:not(:last-child):after{right:auto;left:0}
 html[dir=rtl] .protocol small,
 html[dir=rtl] .protocol strong{
-  font-family:'Alexandria',sans-serif;
-  font-weight:650;
+  font-family:'Alexandria','IBM Plex Sans Arabic',sans-serif;
+  letter-spacing:0;
+  font-weight:650
 }
-html[dir=rtl] .wordline span,
-html[dir=rtl] .signal-strip__track span,
-html[dir=rtl] .kicker,
-html[dir=rtl] .access-badge{
-  font-family:'Alexandria',sans-serif;
-}
+html[dir=rtl] .protocol small{font-size:.62rem;color:#617185}
+html[dir=rtl] .protocol strong{font-size:.78rem}
+
+html[dir=rtl] .scroll-cue{left:auto;right:0;letter-spacing:0;font-family:'Alexandria',sans-serif}
+html[dir=rtl] .scroll-cue>span:after{animation-direction:reverse}
+
+html[dir=rtl] .vault__stamp{left:auto;right:5%;font-family:'Alexandria',sans-serif;letter-spacing:0;line-height:1.6}
+html[dir=rtl] .vault__hint{right:auto;left:5%;font-family:'Alexandria',sans-serif;letter-spacing:0;line-height:1.6}
+html[dir=rtl] .vault__code{right:auto;left:5%}
+
 html[dir=rtl] .signal-strip__track{
+  direction:rtl;
   animation-direction:reverse;
+  letter-spacing:0;
+  font-size:.76rem;
+  font-weight:650
 }
+html[dir=rtl] .wordline{direction:rtl;letter-spacing:0}
+html[dir=rtl] .wordline span{font-family:'Alexandria',sans-serif;letter-spacing:0;font-weight:650;font-size:clamp(.76rem,1.16vw,1rem)}
+html[dir=rtl] .kicker{letter-spacing:0;font-weight:650;font-size:.74rem}
+html[dir=rtl] .access-badge{letter-spacing:0;font-weight:650}
+
 html[dir=rtl] .section-head h2,
 html[dir=rtl] .terminal__copy h2,
 html[dir=rtl] .finale h2{
-  line-height:1.12;
+  line-height:1.1;
+  letter-spacing:-.035em;
   max-width:850px;
+  font-weight:740
 }
 html[dir=rtl] .section-head>p:last-child,
 html[dir=rtl] .terminal__copy>p:last-child{
   max-width:700px;
   line-height:2;
+  font-size:1rem
 }
-html[dir=rtl] .card h3{
-  font-weight:750;
-  font-size:1.12rem;
+
+html[dir=rtl] .card{text-align:right}
+html[dir=rtl] .card__num{right:auto;left:20px}
+html[dir=rtl] .card h3{font-weight:700;font-size:1.16rem;line-height:1.65;letter-spacing:0}
+html[dir=rtl] .card p{font-family:'IBM Plex Sans Arabic',sans-serif;font-size:.96rem;line-height:1.95;color:#8b99ab}
+
+html[dir=rtl] .terminal__bar{direction:ltr;font-family:'Inter',ui-sans-serif,system-ui,sans-serif}
+html[dir=rtl] .terminal__bar>span{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  direction:rtl;
+  unicode-bidi:isolate
 }
-html[dir=rtl] .card p{
-  font-size:.92rem;
-  line-height:2;
-}
-html[dir=rtl] .terminal__bar{
-  font-family:'Inter',ui-sans-serif,system-ui,sans-serif;
-}
-html[dir=rtl] .terminal__bar [data-i18n],
+html[dir=rtl] .terminal-locale-title,
 html[dir=rtl] .terminal__bar>b{
-  font-family:'Alexandria',sans-serif;
+  font-family:'Alexandria','IBM Plex Sans Arabic',sans-serif;
   letter-spacing:0;
+  font-weight:650
 }
-html[dir=rtl] .terminal__log{
-  direction:ltr;
-}
+html[dir=rtl] .terminal__bar>b{text-align:right}
+html[dir=rtl] .terminal__log{direction:ltr}
 html[dir=rtl] .terminal__log b{
   direction:rtl;
   unicode-bidi:isolate;
-  font-family:'Alexandria',sans-serif;
+  font-family:'Alexandria','IBM Plex Sans Arabic',sans-serif;
   letter-spacing:0;
-  font-weight:650;
-}
-html[dir=rtl] .cut h2{
-  max-width:1000px;
-  margin-inline:auto;
-}
-html[dir=rtl] .finale>p:not(.kicker):not(.copyright){
-  line-height:2;
-}
-html[dir=rtl] .finale__state{
-  font-weight:600;
+  font-weight:650
 }
 
-/* Make the teaser hardware legible without spoiling the reveal */
-.vault__assets{filter:grayscale(1) brightness(.245) contrast(1.38)}
-.vault:hover .vault__assets,.vault.is-peeking .vault__assets{
-  filter:grayscale(.94) brightness(.37) contrast(1.43)
+html[dir=rtl] .cut h2{max-width:980px;margin-inline:auto;line-height:1.12;letter-spacing:-.035em}
+html[dir=rtl] .cut p:last-child{font-size:1rem;line-height:2}
+html[dir=rtl] .finale>p:not(.kicker):not(.copyright){line-height:2;font-size:1rem}
+html[dir=rtl] .finale__state{font-weight:650;letter-spacing:0}
+
+/* Language switch: one restrained cinematic settle instead of a hard layout jump. */
+body.language-flash main{animation:localeSettle .38s cubic-bezier(.2,.75,.25,1)}
+@keyframes localeSettle{
+  from{opacity:.86;transform:translateY(3px)}
+  to{opacity:1;transform:none}
 }
+
+/* Make the teaser hardware readable without spoiling the reveal. */
+.vault__assets{filter:grayscale(1) brightness(.255) contrast(1.38)}
+.vault:hover .vault__assets,.vault.is-peeking .vault__assets{filter:grayscale(.94) brightness(.38) contrast(1.43)}
 .vault__light{
-  background:radial-gradient(circle 170px at var(--spot-x) var(--spot-y),
-    rgba(199,241,255,.29),rgba(84,183,226,.095) 38%,transparent 73%);
+  background:radial-gradient(circle 170px at var(--spot-x) var(--spot-y),rgba(199,241,255,.30),rgba(84,183,226,.10) 38%,transparent 73%)
 }
 
-/* Slightly more cinematic section separation */
+/* Stronger but still premium motion language. */
+@media (prefers-reduced-motion:no-preference){
+  .terminal__log p{opacity:.18;transform:translateY(7px)}
+  .terminal.visible .terminal__log p{animation:terminalLineIn .48s cubic-bezier(.2,.75,.25,1) forwards}
+  .terminal.visible .terminal__log p:nth-child(1){animation-delay:.12s}
+  .terminal.visible .terminal__log p:nth-child(2){animation-delay:.22s}
+  .terminal.visible .terminal__log p:nth-child(3){animation-delay:.32s}
+  .terminal.visible .terminal__log p:nth-child(4){animation-delay:.42s}
+  .terminal.visible .terminal__log p:nth-child(5){animation-delay:.52s}
+  .terminal.visible .terminal__log p:nth-child(6){animation-delay:.62s}
+  .protocol strong{animation:statusBreathe 4.8s ease-in-out infinite}
+  .protocol div:nth-child(2) strong{animation-delay:.5s}
+  .protocol div:nth-child(3) strong{animation-delay:1s}
+}
+@keyframes terminalLineIn{to{opacity:1;transform:none}}
+@keyframes statusBreathe{0%,100%{filter:brightness(.92)}50%{filter:brightness(1.15)}}
+
+/* Section separation and depth. */
 .clues,.control,.cut,.finale{position:relative}
 .clues:before,.finale:before{
-  content:"";position:absolute;left:50%;top:0;transform:translateX(-50%);
+  content:"";
+  position:absolute;
+  left:50%;top:0;
+  transform:translateX(-50%);
   width:min(900px,72vw);height:1px;
-  background:linear-gradient(90deg,transparent,rgba(119,216,255,.11),transparent);
+  background:linear-gradient(90deg,transparent,rgba(119,216,255,.12),transparent)
 }
-.card{
-  backdrop-filter:blur(4px);
-}
-.card:hover{
-  transform:translateY(-5px);
-}
+.card{backdrop-filter:blur(4px)}
+@media(pointer:fine){.card:hover{transform:translateY(-5px)}}
 
-/* Mobile: designed as a deliberate layout, not a shrunk desktop */
+/* Mobile is a deliberate layout, not a compressed desktop. */
 @media(max-width:720px){
   .shell{width:min(100% - 28px,1240px)}
   .nav{height:72px}
   .brand img{width:32px;height:32px}
   .brand span{font-size:1.18rem}
-  .hero{padding-top:34px;gap:34px}
+  .hero{padding-top:32px;gap:32px}
   .hero__visual{order:2}
   .hero__copy{order:1}
-  .vault{border-radius:22px;min-height:440px}
-  .vault__assets{filter:grayscale(1) brightness(.29) contrast(1.36)}
-  .vault__light{
-    background:radial-gradient(circle 128px at var(--spot-x) var(--spot-y),
-      rgba(199,241,255,.25),rgba(84,183,226,.08) 40%,transparent 75%);
-  }
-  .vault__stamp{max-width:80%;line-height:1.5}
+  .vault{border-radius:22px;min-height:430px}
+  .vault__assets{filter:grayscale(1) brightness(.30) contrast(1.36)}
+  .vault__light{background:radial-gradient(circle 130px at var(--spot-x) var(--spot-y),rgba(199,241,255,.26),rgba(84,183,226,.085) 40%,transparent 75%)}
+  .vault__stamp{max-width:82%;line-height:1.55}
   .protocol{margin-top:30px}
   .cards{gap:12px}
   .card{min-height:250px;padding:24px}
-  .card__icon{margin-bottom:42px}
+  .card__icon{margin-bottom:40px}
   .terminal__bar{padding-inline:14px}
   .terminal__body{padding:24px}
   .finale__mark{width:72px;height:72px;border-radius:20px}
   .finale__mark img{width:47px;height:47px}
+
   html[dir=rtl] .hero h1{
-    font-size:clamp(3.15rem,15.5vw,4.55rem);
+    font-size:clamp(3.05rem,15vw,4.45rem);
     line-height:1.08;
     max-width:100%;
+    letter-spacing:-.035em
   }
-  html[dir=rtl] .hero__lead{
-    font-size:.95rem;
-    line-height:2;
+  html[dir=rtl] .hero__lead{font-size:.97rem;line-height:1.95}
+  html[dir=rtl] .hero__actions{gap:10px}
+  html[dir=rtl] .primary{width:100%}
+  html[dir=rtl] .protocol{grid-template-columns:1fr}
+  html[dir=rtl] .protocol div{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px dashed rgba(255,255,255,.055)
   }
-  html[dir=rtl] .primary{
-    width:100%;
-  }
+  html[dir=rtl] .protocol div:not(:last-child):after{display:none}
+  html[dir=rtl] .protocol strong{margin:0}
   html[dir=rtl] .section-head h2,
   html[dir=rtl] .terminal__copy h2,
   html[dir=rtl] .finale h2{
-    font-size:clamp(2.55rem,12vw,4rem);
-    line-height:1.16;
+    font-size:clamp(2.5rem,11.8vw,3.95rem);
+    line-height:1.14
   }
-  html[dir=rtl] .cut h2{
-    font-size:clamp(2.8rem,13vw,4.25rem);
-    line-height:1.18;
-  }
+  html[dir=rtl] .section-head>p:last-child,
+  html[dir=rtl] .terminal__copy>p:last-child,
+  html[dir=rtl] .card p,
+  html[dir=rtl] .finale>p:not(.kicker):not(.copyright){font-size:.94rem}
+  html[dir=rtl] .cut h2{font-size:clamp(2.75rem,12.6vw,4.1rem);line-height:1.16}
+  html[dir=rtl] .wordline{gap:9px}
+  html[dir=rtl] .wordline span{font-size:.7rem}
+  html[dir=rtl] .signal-strip__track{font-size:.7rem}
 }
+
 @media(max-width:390px){
   .shell{width:min(100% - 22px,1240px)}
   .lang{width:38px;height:38px}
-  html[dir=rtl] .hero h1{font-size:2.85rem}
+  .vault{min-height:395px}
+  html[dir=rtl] .hero h1{font-size:2.78rem}
   html[dir=rtl] .section-head h2,
   html[dir=rtl] .terminal__copy h2,
-  html[dir=rtl] .finale h2{font-size:2.4rem}
-  .vault{min-height:400px}
+  html[dir=rtl] .finale h2{font-size:2.34rem}
+  html[dir=rtl] .cut h2{font-size:2.6rem}
+  html[dir=rtl] .card h3{font-size:1.08rem}
+  html[dir=rtl] .card p{font-size:.91rem}
+}
+
+@media(prefers-reduced-motion:reduce){
+  body.language-flash main{animation:none}
+  .terminal__log p{opacity:1!important;transform:none!important}
 }
