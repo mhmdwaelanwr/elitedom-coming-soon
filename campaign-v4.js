@@ -1,4 +1,5 @@
-/* Final campaign copy + brand semantics. Loaded after the core locale script. */
+/* Final campaign copy + brand semantics.
+   Merge once into the core locale map; the existing language switcher then owns all text updates. */
 (() => {
   const COPY = {
     en: {
@@ -31,18 +32,17 @@
     }
   };
 
-  const $ = (s, root=document) => root.querySelector(s);
-  const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+  if (typeof translations !== 'undefined') {
+    Object.assign(translations.en, COPY.en);
+    Object.assign(translations.ar, COPY.ar);
+  }
 
-  function currentLang(){ return document.documentElement.lang === 'ar' ? 'ar' : 'en'; }
+  const currentLang = () => document.documentElement.lang === 'ar' ? 'ar' : 'en';
+  const $ = selector => document.querySelector(selector);
 
-  function applyCopy(){
+  const syncCampaignChrome = () => {
     const lang = currentLang();
     const map = COPY[lang];
-    $$('[data-i18n]').forEach(node => {
-      const value = map[node.dataset.i18n];
-      if (value) node.textContent = value;
-    });
 
     const vaultHint = $('.vault__hint');
     if (vaultHint) vaultHint.textContent = map[matchMedia('(pointer:fine)').matches ? 'move' : 'moveTouch'];
@@ -58,10 +58,9 @@
     const encrypted = $('.terminal__bar>b');
     if (encrypted) encrypted.textContent = lang === 'ar' ? 'مشفّر' : 'ENCRYPTED';
 
-    const logRows = $$('.terminal__log p');
     const labels = ['› core.system','› original.parts','› storefront.ui','› public.access','› launch.sequence','› _'];
-    logRows.forEach((row, i) => {
-      const label = $('span', row);
+    document.querySelectorAll('.terminal__log p').forEach((row, i) => {
+      const label = row.querySelector('span');
       if (label && labels[i]) label.textContent = labels[i];
     });
 
@@ -72,19 +71,16 @@
       redacted.innerHTML = '<i></i><span></span>';
       $('.vault')?.appendChild(redacted);
     }
-    const redactedText = $('span', redacted);
+    const redactedText = redacted?.querySelector('span');
     if (redactedText) redactedText.textContent = lang === 'ar' ? 'PREVIEW // محجوب جزئيًا' : 'PREVIEW // PARTIALLY REDACTED';
-  }
+  };
 
-  const localeObserver = new MutationObserver(() => requestAnimationFrame(applyCopy));
-  localeObserver.observe(document.documentElement, {attributes:true, attributeFilter:['lang','dir']});
+  /* Re-apply once after merging final copy. This happens in the same deferred script task,
+     before the browser presents the finished page. */
+  if (typeof applyLanguage === 'function') applyLanguage(currentLang(), false);
+  syncCampaignChrome();
 
-  document.addEventListener('click', e => {
-    if (e.target.closest('#languageToggle')) setTimeout(applyCopy, 0);
-  });
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applyCopy, {once:true});
-  else applyCopy();
-  setTimeout(applyCopy, 120);
-  setTimeout(applyCopy, 650);
+  /* Core applyLanguage already updates every [data-i18n] node on click.
+     Only the non-data chrome above needs one cheap post-switch sync. */
+  document.getElementById('languageToggle')?.addEventListener('click', () => requestAnimationFrame(syncCampaignChrome));
 })();
