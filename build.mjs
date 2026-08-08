@@ -26,7 +26,8 @@ const cssFiles = [
   'brand-assets.css',
   'mobile-stability.css',
   'campaign-v4.css',
-  'performance-pass.css'
+  'performance-pass.css',
+  'typography-system.css'
 ];
 
 const css = trimCssComments(cssFiles
@@ -99,7 +100,7 @@ writeFileSync(join(DIST, 'desktop-runtime.js'), desktopJs);
 let html = read('index.html');
 
 /* Source CSS/JS stays readable in GitHub; Production gets one CSS and one core JS. */
-html = html.replace(/^\s*<link rel="stylesheet" href="(?:v3|polish|final-polish|interaction-polish|brand-assets|mobile-stability|campaign-v4|performance-pass)\.css[^\n]*\n/gm, '');
+html = html.replace(/^\s*<link rel="stylesheet" href="(?:v3|polish|final-polish|interaction-polish|brand-assets|mobile-stability|campaign-v4|performance-pass|typography-system)\.css[^\n]*\n/gm, '');
 html = html.replace(/^\s*<script src="(?:performance-pass|v3|final-polish|mobile-stability|campaign-v4|interaction-polish)\.js[^\n]*<\/script>\s*$/gm, '');
 
 /* Load each font family once, without legacy CSS @imports. */
@@ -118,4 +119,5 @@ console.log(`Production version: ${VERSION}`);
 console.log(`Bundled ${cssFiles.length} CSS sources -> dist/app.css`);
 console.log(`Bundled ${coreFiles.length} core JS sources -> dist/app.js`);
 console.log('Pruned lite-device JS work and deferred premium desktop runtime until idle');
+console.log('Applied deterministic Inter/Alexandria/monospace typography contract');
 console.log('Copied assets and generated dist/index.html');
