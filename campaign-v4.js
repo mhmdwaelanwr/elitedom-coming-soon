@@ -59,6 +59,26 @@
     {name:'WhatsApp',icon:'<path d="M12 3a8.5 8.5 0 0 0-7.3 12.8L3.5 21l5.4-1.4A8.5 8.5 0 1 0 12 3z"/><path d="M9 8.2c.3-.5.6-.5.9-.5h.5c.2 0 .4.1.5.5l.8 2c.1.3 0 .6-.2.8l-.6.7c-.2.2-.2.4 0 .7.6 1 1.5 1.9 2.5 2.5.3.2.5.2.7-.1l.8-1c.2-.3.5-.3.8-.2l1.9.9c.3.2.5.3.5.6 0 .4-.2 1.5-1 2.1-.7.6-1.6 1-2.8.7-1.2-.3-2.8-1-4.5-2.5-2-1.7-3.3-3.9-3.7-5.3-.4-1.4.4-2.9.9-3.5z" fill="currentColor" stroke="none"/>'}
   ];
 
+  const SOCIAL_STYLE = `
+    .social-footer{width:min(720px,100%);margin:28px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,.065);display:flex;flex-direction:column;align-items:center;gap:15px}
+    .social-footer__label{color:#607181;font-size:.58rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .social-dock{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;direction:ltr}
+    .social-chip{width:40px;height:40px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.085);border-radius:12px;background:linear-gradient(145deg,rgba(255,255,255,.032),rgba(255,255,255,.012));color:#798896;box-shadow:inset 0 1px 0 rgba(255,255,255,.025);transition:transform .24s cubic-bezier(.2,.75,.25,1),border-color .24s ease,color .24s ease,background .24s ease,box-shadow .24s ease;cursor:default}
+    .social-chip svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+    @media(pointer:fine) and (min-width:821px){.social-chip:hover{transform:translateY(-3px);color:#eaf8ff;border-color:rgba(119,216,255,.26);background:rgba(119,216,255,.055);box-shadow:0 12px 34px rgba(0,0,0,.24),0 0 24px rgba(119,216,255,.07)}}
+    html[dir=rtl] .social-footer__label{font-family:'Alexandria',Tahoma,Arial,sans-serif;letter-spacing:0;text-transform:none;font-weight:650}
+    @media(max-width:820px){.social-footer{width:min(560px,94%);margin-top:24px;padding-top:18px;gap:13px}.social-dock{gap:7px}.social-chip{width:37px;height:37px;border-radius:11px}.social-chip svg{width:17px;height:17px}}
+    @media(max-width:430px){.social-footer{width:100%;margin-top:22px}.social-dock{max-width:300px;gap:6px}.social-chip{width:35px;height:35px;border-radius:10px}.social-chip svg{width:16px;height:16px}}
+    @media(prefers-reduced-motion:reduce){.social-chip{transition:none!important}}
+  `;
+
+  if (!document.getElementById('elitedom-social-style')) {
+    const style = document.createElement('style');
+    style.id = 'elitedom-social-style';
+    style.textContent = SOCIAL_STYLE;
+    document.head.appendChild(style);
+  }
+
   if (typeof translations !== 'undefined') {
     Object.assign(translations.en, COPY.en);
     Object.assign(translations.ar, COPY.ar);
