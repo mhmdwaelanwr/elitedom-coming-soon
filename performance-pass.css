@@ -1,0 +1,59 @@
+/* Elitedom performance pass — preserve the cinematic desktop experience while keeping touch/low-power devices light. */
+
+/* Defer rendering of below-the-fold sections until the browser needs them. */
+.clues,.control,.cut,.finale{content-visibility:auto;contain-intrinsic-size:auto 780px}
+
+/* Avoid expensive paint work when the page is not actively swapping locale. */
+html.locale-swapping .reveal,html.locale-swapping .hero__visual,html.locale-swapping .vault{transition:none!important}
+
+html[data-perf="lite"] .ambient__noise,
+html[data-perf="lite"] #particles,
+html[data-perf="lite"] .cursor-glow{display:none!important}
+
+html[data-perf="lite"] .ambient:before{animation:none!important;filter:none!important;opacity:.6}
+html[data-perf="lite"] .ambient__grid{opacity:.58;mask-image:none;-webkit-mask-image:none}
+html[data-perf="lite"] .ambient__vignette{background:radial-gradient(circle at 50% 22%,transparent,rgba(0,0,0,.18) 48%,rgba(0,0,0,.72))}
+
+/* Continuous animation is the biggest cost on mid-range phones. Keep only meaningful reveals. */
+html[data-perf="lite"] .vault__scan,
+html[data-perf="lite"] .hero h1 .metal:after,
+html[data-perf="lite"] .access-badge i,
+html[data-perf="lite"] .boot__bar span,
+html[data-perf="lite"] .cut__ring,
+html[data-perf="lite"] .terminal__cursor,
+html[data-perf="lite"] .card__icon{animation:none!important}
+
+html[data-perf="lite"] .signal-strip__track{animation-duration:48s!important}
+
+/* Remove GPU-heavy filters and backdrop blur on lite devices. */
+html[data-perf="lite"] .nav.is-scrolled,
+html[data-perf="lite"] .vault__stamp,
+html[data-perf="lite"] .vault__redacted{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+html[data-perf="lite"] .nav.is-scrolled{background:rgba(3,6,10,.94)!important}
+html[data-perf="lite"] .vault__assets{filter:none!important;opacity:.72!important;transform:none!important;transition:none!important}
+html[data-perf="lite"] .vault:hover .vault__assets{filter:none!important;transform:none!important}
+html[data-perf="lite"] .vault{transform:none!important;box-shadow:0 22px 58px rgba(0,0,0,.42),inset 0 0 0 1px rgba(124,219,255,.035)!important}
+html[data-perf="lite"] .terminal{box-shadow:0 22px 62px rgba(0,0,0,.28),inset 0 0 0 1px rgba(255,255,255,.012)!important}
+html[data-perf="lite"] .card{box-shadow:none!important}
+html[data-perf="lite"] .vault__light{opacity:.82}
+html[data-perf="lite"] .vault__grid{opacity:.12!important}
+
+/* Prevent accidental transform/compositing layers from accumulating on touch devices. */
+html[data-perf="lite"] .hero__visual,
+html[data-perf="lite"] .tilt-card,
+html[data-perf="lite"] .magnetic{transform:none!important;will-change:auto!important}
+
+/* A smaller render budget for narrow phones. */
+@media (max-width:820px){
+  .clues,.control,.cut,.finale{contain-intrinsic-size:auto 620px}
+  html[data-perf="lite"] .section{padding-block:clamp(74px,12vw,96px)}
+}
+
+@media (max-width:430px){
+  .clues,.control,.cut,.finale{contain-intrinsic-size:auto 560px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .ambient:before,.vault__scan,.signal-strip__track,.hero h1 .metal:after,.access-badge i,.boot__bar span,.cut__ring,.terminal__cursor,.card__icon{animation:none!important}
+  .vault__assets{transform:none!important;transition:none!important}
+}
