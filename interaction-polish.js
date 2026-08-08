@@ -1,5 +1,19 @@
-/* Premium mouse interactions for desktop fine pointers only. */
+/* Final campaign loader + premium mouse interactions for desktop fine pointers only. */
 (() => {
+  if (!document.querySelector('link[data-elitedom-campaign]')) {
+    const css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = 'campaign-v4.css?v=1';
+    css.dataset.elitedomCampaign = '1';
+    document.head.appendChild(css);
+  }
+  if (!document.querySelector('script[data-elitedom-campaign]')) {
+    const script = document.createElement('script');
+    script.src = 'campaign-v4.js?v=1';
+    script.dataset.elitedomCampaign = '1';
+    document.head.appendChild(script);
+  }
+
   const fine = matchMedia('(pointer:fine)').matches;
   const desktop = matchMedia('(min-width:821px)').matches;
   const reduced = matchMedia('(prefers-reduced-motion:reduce)').matches;
