@@ -1,0 +1,156 @@
+/* Final pass based on recorded Arabic/RTL review */
+
+/* The sticky header should feel cinematic, not sit on top of every scene. */
+.nav{
+  transition:transform .42s cubic-bezier(.2,.75,.25,1),opacity .32s ease,background .25s,border .25s;
+  will-change:transform;
+}
+.nav.is-scrolled.is-hidden{
+  transform:translateY(calc(-100% - 8px));
+  opacity:.12;
+  pointer-events:none;
+}
+
+/* Remove the oversized dead zone between the clue cards and launch control. */
+.clues.section{padding-bottom:clamp(62px,6.5vw,96px)}
+.control.section{padding-top:clamp(54px,5.8vw,88px);padding-bottom:clamp(74px,7vw,106px)}
+.cut.section{padding-top:clamp(84px,8vw,122px);padding-bottom:clamp(84px,8vw,122px)}
+.finale.section{padding-top:clamp(92px,8.5vw,132px)}
+
+/* Arabic editorial system */
+html[dir=rtl] body{
+  font-family:'IBM Plex Sans Arabic','Alexandria','Segoe UI',Tahoma,Arial,sans-serif;
+}
+html[dir=rtl] h1,
+html[dir=rtl] h2,
+html[dir=rtl] h3,
+html[dir=rtl] .kicker,
+html[dir=rtl] .primary,
+html[dir=rtl] .access-badge,
+html[dir=rtl] .protocol,
+html[dir=rtl] .signal-label,
+html[dir=rtl] .signal-strip__track,
+html[dir=rtl] .wordline,
+html[dir=rtl] .finale__state{
+  font-family:'Alexandria','IBM Plex Sans Arabic',sans-serif;
+}
+html[dir=rtl] .hero h1{
+  letter-spacing:-.035em;
+  line-height:1.03;
+  max-width:680px;
+}
+html[dir=rtl] .hero__lead{
+  max-width:625px;
+  color:#a0adbd;
+  font-size:clamp(1.03rem,1.2vw,1.16rem);
+  line-height:2.02;
+}
+html[dir=rtl] .section-head>p:last-child,
+html[dir=rtl] .terminal__copy>p:last-child,
+html[dir=rtl] .card p,
+html[dir=rtl] .cut p:last-child,
+html[dir=rtl] .finale>p:not(.kicker):not(.copyright){
+  color:#95a3b4;
+}
+
+/* Mixed Arabic/Latin labels must have deterministic bidi ordering. */
+html[dir=rtl] .terminal__bar>span{
+  direction:ltr !important;
+  unicode-bidi:isolate;
+  gap:8px;
+}
+html[dir=rtl] .terminal-brand{
+  direction:ltr;
+  unicode-bidi:isolate;
+  flex:none;
+}
+html[dir=rtl] .terminal-locale-title{
+  direction:rtl;
+  unicode-bidi:isolate;
+  display:inline-block;
+}
+html[dir=rtl] .live-domain,
+html[dir=rtl] .finale__domain,
+html[dir=rtl] .vault__code{
+  direction:ltr;
+  unicode-bidi:isolate;
+}
+html[dir=rtl] .copyright{
+  unicode-bidi:plaintext;
+}
+html[dir=rtl] [data-i18n="rights"]{
+  direction:rtl;
+  unicode-bidi:isolate;
+  display:inline-block;
+}
+
+/* Status block feels cleaner in Arabic with compact copy. */
+html[dir=rtl] .protocol small{font-size:.64rem;line-height:1.55}
+html[dir=rtl] .protocol strong{font-size:.8rem;line-height:1.45}
+html[dir=rtl] .card h3{font-size:1.18rem;line-height:1.62}
+html[dir=rtl] .card p{font-size:.98rem;line-height:1.95}
+html[dir=rtl] .terminal__copy h2{max-width:700px}
+html[dir=rtl] .cut h2{max-width:960px}
+html[dir=rtl] .finale h2{max-width:900px;margin-inline:auto}
+html[dir=rtl] .finale>p:not(.kicker):not(.copyright){max-width:690px;margin-inline:auto}
+
+/* Make the reveal feel authored for RTL instead of mirrored English. */
+@media (prefers-reduced-motion:no-preference){
+  html[dir=rtl] .hero__copy.visible h1 span,
+  html[dir=rtl] .section-head.visible h2 span,
+  html[dir=rtl] .terminal.visible .terminal__copy h2 span,
+  html[dir=rtl] .finale.visible h2 span{
+    animation:rtlHeadlineIn .72s cubic-bezier(.2,.75,.25,1) both;
+  }
+  html[dir=rtl] .hero__copy.visible h1 span:nth-child(2),
+  html[dir=rtl] .section-head.visible h2 span:nth-child(2),
+  html[dir=rtl] .terminal.visible .terminal__copy h2 span:nth-child(2),
+  html[dir=rtl] .finale.visible h2 span:nth-child(2){animation-delay:.09s}
+  html[dir=rtl] .finale__mark{animation:finalMarkFloat 5.8s ease-in-out infinite}
+  .cut__ring{animation:cutPulse 8s ease-in-out infinite alternate}
+}
+@keyframes rtlHeadlineIn{
+  from{opacity:0;transform:translate3d(18px,18px,0);filter:blur(5px)}
+  to{opacity:1;transform:none;filter:none}
+}
+@keyframes finalMarkFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-7px)}
+}
+@keyframes cutPulse{
+  from{opacity:.62;filter:blur(0)}
+  to{opacity:.92;filter:blur(1px)}
+}
+
+/* Desktop Arabic balance */
+@media(min-width:901px){
+  html[dir=rtl] .hero{grid-template-columns:minmax(430px,.94fr) minmax(0,1.06fr)}
+  html[dir=rtl] .hero__copy{padding-inline-start:8px}
+}
+
+/* Mobile: keep everything readable, tactile and intentionally composed. */
+@media(max-width:720px){
+  .clues.section{padding-bottom:58px}
+  .control.section{padding-top:48px;padding-bottom:72px}
+  .cut.section{padding-block:78px}
+  .finale.section{padding-top:86px}
+  .access-badge{display:none}
+  html[dir=rtl] .hero h1{font-size:clamp(3rem,14.6vw,4.2rem);line-height:1.08}
+  html[dir=rtl] .hero__lead{font-size:.98rem;line-height:1.95}
+  html[dir=rtl] .card h3{font-size:1.12rem}
+  html[dir=rtl] .card p{font-size:.94rem;line-height:1.9}
+  html[dir=rtl] .terminal__bar>span{font-size:.57rem;gap:5px}
+  html[dir=rtl] .terminal__copy h2{font-size:clamp(2.45rem,11.4vw,3.8rem)}
+  html[dir=rtl] .cut h2{font-size:clamp(2.65rem,12vw,3.9rem)}
+  html[dir=rtl] .finale h2{font-size:clamp(2.55rem,11.7vw,3.9rem)}
+}
+
+@media(max-width:390px){
+  html[dir=rtl] .hero h1{font-size:2.72rem}
+  html[dir=rtl] .hero__lead{font-size:.94rem}
+  html[dir=rtl] .terminal__bar>span{font-size:.52rem}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .nav{transition:none}
+}
